@@ -10,11 +10,13 @@ const Login = () => {
 
   const loginForm = e => {
     e.preventDefault();
-    axios.post('http://localhost:3000/login', {
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-    }).then(res => console.log(res)
-    ).catch(err => console.log(err))
+    axios.post('http://localhost:3000/login',
+      {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      }, { withCredentials: true })
+      .then(res => console.log(res)
+      ).catch(err => console.log(err))
   }
 
   return (

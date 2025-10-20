@@ -3,12 +3,25 @@ const app = express();
 const cors = require("cors");
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173", 
+    credentials: true 
+}));
+
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 
 // Routers
 const authRoute = require('./routers/auth');
 app.use('/',authRoute);
+
+const auth = require("./middleware/auth");
+
+app.get("/check-auth", auth, (req, res) => {
+    res.json({ message: "Authorized" });
+});
+
 
 const productRoute = require('./routers/product');
 app.use('/product',productRoute);
